@@ -105,8 +105,15 @@ print 'Straight Decryption: ', decrypt(ranm,encryptedString)
 k="GERMAN"
 print 'Decryption Key: ',k
 
+<<<<<<< HEAD
 SmallerCol=int(rounddown(len(encryptedString)/len(k)))
 
+=======
+#remainders=len(encryptedString)%len(k)
+SmallerCol=int(rounddown(len(encryptedString)/len(k)))
+
+
+>>>>>>> ec6cf2e36323bf23a98e1b1aca7b34177d93d684
 #makes dictionary key=letters,value=original position
 keyd=dict(enumerate(k))
 keydSorted = {y:x for x,y in keyd.iteritems()}
@@ -114,7 +121,16 @@ DesignatedSpot=keydSorted.values()
 
 dnew = [[] for x in range(len(k))]
 
+<<<<<<< HEAD
 extra=len(encryptedString) % len(k)
+=======
+#ksortedl=list(''.join(sorted(k)))
+
+extra=len(encryptedString) % len(k)
+#end=list(encryptedString[-4:])
+
+
+>>>>>>> ec6cf2e36323bf23a98e1b1aca7b34177d93d684
 
 # Takes crypt and starting from the beggining removes either a short or long column for the next method 
 # i is the place of the starting column extra is how many long columns there are 
