@@ -1,5 +1,6 @@
 import random
 import string
+import sys
 from math import ceil as roundup
 from math import floor as rounddown
 
@@ -65,35 +66,64 @@ def Listify(crypt,key):
 			i+=1
 	return m
 
+def printarray(arr,beginning):
+	ADFGVX='ADFGVX'
+	if beginning:
+		print '   A D F G V X'
+		print ''
+	for x in range(len(arr[0])+1):
+		try:
+			if beginning:
+				sys.stdout.write(ADFGVX[x])
+				sys.stdout.write('  ')
+		except:
+			continue
+		for y in range(len(arr)+1):
+			try:
+				print arr[y][x],
+			except:
+				if y==0:
+					sys.stdout.write('  ')
+				else:
+					sys.stdout.write(' ')
+		print ""
+	print ""
+	return -1
 
 raws = string.ascii_uppercase + string.digits
 ranl=list(raws)
 
 random.shuffle(ranl)
+
 ranm = [['0' for x in range(6)] for i in range(6)]
 
 for i in range(0,6):
 	ranm[i]=ranl[i*6:i*6+6]
 
-istrs='INVADE FROM THE WEST AT 8 OR 5'
+
+istrs='INVADE FROM THE WEST AT 8'
 istr=istrs.replace(" ", "")
 
 print 'PlainText: ',istrs
-unshuffledString = encrypt(ranm,istr)
 
-print 'UnShuggled Crypt: ',unshuffledString
+printarray(ranm,True)
+
+unshuffledString = encrypt(ranm,istr)
+print 'UnShuffled Crypt: ',unshuffledString
 
 k='GERMAN'
-print 'Encryption Key: ',k
 
 c=Listify(list(unshuffledString),k)
+printarray(c,False)
 
+print 'Encryption Key: ',k
 #gets numbers of key
 keyln=[ord(j) for j in k]
 
 
 #Shuffles 2d array  to key
 d=bubbleSort(keyln,c)
+printarray(d,False)
 
 encryptedString=''
 for x in range(len(k)):
@@ -107,16 +137,12 @@ print 'Decryption Key: ',k
 
 SmallerCol=int(rounddown(len(encryptedString)/len(k)))
 
-SmallerCol=int(rounddown(len(encryptedString)/len(k)))
-
 #makes dictionary key=letters,value=original position
 keyd=dict(enumerate(k))
 keydSorted = {y:x for x,y in keyd.iteritems()}
 DesignatedSpot=keydSorted.values()
 
 dnew = [[] for x in range(len(k))]
-
-extra=len(encryptedString) % len(k)
 
 extra=len(encryptedString) % len(k)
 
@@ -130,6 +156,7 @@ for col in range(len(k)):
 	dnew[DesignatedSpot[col]]=encryptedString[i:i+SmallerCol+var]
 	i+=var + SmallerCol
 
+printarray(dnew,False)
 
 DecryptedString=''
 for col in range(SmallerCol+1):
